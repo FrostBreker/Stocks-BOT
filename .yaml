@@ -1,0 +1,198 @@
+{
+  explains: [],
+  count: 12,
+  quotes: [
+    {
+      exchange: 'NYQ',
+      shortname: 'Alcoa Corporation',
+      quoteType: 'EQUITY',
+      symbol: 'AA',
+      index: 'quotes',
+      score: 2869700,
+      typeDisp: 'Equity',
+      longname: 'Alcoa Corporation',
+      exchDisp: 'NYSE',
+      sector: 'Basic Materials',
+      sectorDisp: 'Basic Materials',
+      industry: 'Aluminum',
+      industryDisp: 'Aluminum',
+      dispSecIndFlag: false,
+      isYahooFinance: true
+    },
+    {
+      exchange: 'NMS',
+      shortname: 'Apple Inc.',
+      quoteType: 'EQUITY',
+      symbol: 'AAPL',
+      index: 'quotes',
+      score: 232511,
+      typeDisp: 'Equity',
+      longname: 'Apple Inc.',
+      exchDisp: 'NASDAQ',
+      sector: 'Technology',
+      sectorDisp: 'Technology',
+      industry: 'Consumer Electronics',
+      industryDisp: 'Consumer Electronics',
+      isYahooFinance: true
+    },
+    {
+      exchange: 'NYQ',
+      shortname: 'Advance Auto Parts Inc.',
+      quoteType: 'EQUITY',
+      symbol: 'AAP',
+      index: 'quotes',
+      score: 42494,
+      typeDisp: 'Equity',
+      longname: 'Advance Auto Parts, Inc.',
+      exchDisp: 'NYSE',
+      sector: 'Consumer Cyclical',
+      sectorDisp: 'Consumer Cyclical',
+      industry: 'Specialty Retail',
+      industryDisp: 'Specialty Retail',
+      isYahooFinance: true
+    },
+    {
+      exchange: 'NMS',
+      shortname: 'American Airlines Group, Inc.',
+      quoteType: 'EQUITY',
+      symbol: 'AAL',
+      index: 'quotes',
+      score: 34842,
+      typeDisp: 'Equity',
+      longname: 'American Airlines Group Inc.',
+      exchDisp: 'NASDAQ',
+      sector: 'Industrials',
+      sectorDisp: 'Industrials',
+      industry: 'Airlines',
+      industryDisp: 'Airlines',
+      isYahooFinance: true
+    },
+    {
+      exchange: 'NGM',
+      shortname: 'Applied Optoelectronics, Inc.',
+      quoteType: 'EQUITY',
+      symbol: 'AAOI',
+      index: 'quotes',
+      score: 25725,
+      typeDisp: 'Equity',
+      longname: 'Applied Optoelectronics, Inc.',
+      exchDisp: 'NASDAQ',
+      sector: 'Technology',
+      sectorDisp: 'Technology',
+      industry: 'Communication Equipment',
+      industryDisp: 'Communication Equipment',
+      isYahooFinance: true
+    },
+    {
+      index: 'fe4a726c8b91edb6771ce313bf52efb5',
+      name: 'Aave',
+      permalink: 'ethlend',
+      isYahooFinance: false
+    },
+    {
+      index: '0907a88780d24036b47c12304f42150f',
+      name: 'Aareon',
+      permalink: 'aareon',
+      isYahooFinance: false
+    }
+  ],
+  news: [
+    {
+      uuid: '8308ea06-9abd-32cf-b7cb-ab123247e8b1',
+      title: "Alcoa's (NYSE:AA) investors will be pleased with their respectable 90% return over the last three years",
+      publisher: 'Simply Wall St.',
+      link: 'https://finance.yahoo.com/news/alcoas-nyse-aa-investors-pleased-140438382.html',
+      providerPublishTime: 2023-08-27T14:04:38.000Z,
+      type: 'STORY',
+      thumbnail: [Object],
+      relatedTickers: [Array]
+    },
+    {
+      uuid: '73f9df7f-2cfd-3912-902e-0339a846e199',
+      title: '18 Best 52-Week Low Stocks To Buy Now',
+      publisher: 'Insider Monkey',
+      link: 'https://finance.yahoo.com/news/18-best-52-week-low-133129994.html',
+      providerPublishTime: 2023-08-27T13:31:29.000Z,
+      type: 'STORY',
+      thumbnail: [Object],
+      relatedTickers: [Array]
+    },
+    {
+      uuid: '5508d134-d724-346c-97a2-0476b29c3349',
+      title: 'Alcoa (AA) Stock Moves -0.21%: What You Should Know',
+      publisher: 'Zacks',
+      link: 'https://finance.yahoo.com/news/alcoa-aa-stock-moves-0-221506406.html',
+      providerPublishTime: 2023-08-24T22:15:06.000Z,
+      type: 'STORY',
+      thumbnail: [Object],
+      relatedTickers: [Array]
+    },
+    {
+      uuid: 'edaf51bd-7de8-3ecb-aac9-6eb1ebb69c00',
+      title: 'RPT-COLUMN-Rio Tinto counts the cost of producing green aluminium: Andy Home',
+      publisher: 'Reuters',
+      link: 'https://finance.yahoo.com/news/rpt-column-rio-tinto-counts-000000492.html',
+      providerPublishTime: 2023-08-04T00:00:00.000Z,
+      type: 'STORY',
+      relatedTickers: [Array]
+    }
+  ],
+  nav: [
+    {
+      navName: 'Aarthi Swaminathan',
+      navUrl: 'https://www.yahoo.com/author/aarthi-swaminathan/'
+    }
+  ],
+  lists: [],
+  researchReports: [],
+  screenerFieldResults: [],
+  totalTime: 94,
+  timeTakenForQuotes: 463,
+  timeTakenForNews: 700,
+  timeTakenForAlgowatchlist: 400,
+  timeTakenForPredefinedScreener: 400,
+  timeTakenForCrunchbase: 400,
+  timeTakenForNav: 400,
+  timeTakenForResearchReports: 0,
+  timeTakenForScreenerField: 0,
+  timeTakenForCulturalAssets: 0
+}
+
+{
+  price: {
+    maxAge: 1,
+    preMarketSource: 'FREE_REALTIME',
+    postMarketChangePercent: 0.002514352,
+    postMarketChange: 0.5998993,
+    postMarketTime: 2023-08-25T23:59:59.000Z,
+    postMarketPrice: 239.1899,
+    postMarketSource: 'DELAYED',
+    regularMarketChangePercent: 0.037167463,
+    regularMarketChange: 8.550003,
+    regularMarketTime: 2023-08-25T20:00:01.000Z,
+    priceHint: 2,
+    regularMarketPrice: 238.59,
+    regularMarketDayHigh: 239,
+    regularMarketDayLow: 230.35,
+    regularMarketVolume: 105274610,
+    regularMarketPreviousClose: 230.04,
+    regularMarketSource: 'FREE_REALTIME',
+    regularMarketOpen: 231.31,
+    exchange: 'NMS',
+    exchangeName: 'NasdaqGS',
+    exchangeDataDelayedBy: 0,
+    marketState: 'CLOSED',
+    quoteType: 'EQUITY',
+    symbol: 'TSLA',
+    underlyingSymbol: null,
+    shortName: 'Tesla, Inc.',
+    longName: 'Tesla, Inc.',
+    currency: 'USD',
+    quoteSourceName: 'Delayed Quote',
+    currencySymbol: '$',
+    fromCurrency: null,
+    toCurrency: null,
+    lastMarket: null,
+    marketCap: 757282242560
+  }
+}
