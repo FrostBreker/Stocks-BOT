@@ -185,7 +185,7 @@ module.exports = async client => {
             const channel = await guild.channels.fetch(guildData.followChannelId);
             if (!channel) return;
             if (!f.onOpen) return;
-            return await channel.send({ embeds: [followMarketOpened(f, await client.getStock(f.symbol))] }).then(() => {
+            return await channel.send({ content: `<@${f.ownerId}>`, embeds: [followMarketOpened(f, await client.getStock(f.symbol))] }).then(() => {
                 console.log(`Market opened for ${f.symbol} in ${guild.name}`);
             }).catch((e) => {
                 console.log(e);
@@ -204,7 +204,7 @@ module.exports = async client => {
             const channel = await guild.channels.fetch(guildData.followChannelId);
             if (!channel) return;
             if (!f.onClose) return;
-            return await channel.send({ embeds: [followMarketClosed(f, await client.getStock(f.symbol))] }).then(() => {
+            return await channel.send({ content: `<@${f.ownerId}>`, embeds: [followMarketClosed(f, await client.getStock(f.symbol))] }).then(() => {
                 console.log(`Market closed for ${f.symbol} in ${guild.name}`);
             }).catch((e) => {
                 console.log(e);
