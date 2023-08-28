@@ -33,6 +33,22 @@ class FolowsEmbed {
             .setColor(embedOptions.colors.success)
             .setTimestamp();
     }
+
+    static followMarketOpened(follow, stock) {
+        return new EmbedBuilder()
+            .setTitle(`> ${embedOptions.icons.success} ` + "Market opened")
+            .setDescription(`The market is now open for ${follow.symbol} on ${stock.price.exchangeName}\n\n- Price: ${stock.price.regularMarketPrice}${stock.price.currencySymbol}\n- Previous close: ${stock.price.regularMarketPreviousClose}\n- Change: ${stock.price.regularMarketChange}\n- Change %: ${stock.price.regularMarketChangePercent}\n- Open: ${stock.price.regularMarketOpen}\n- High: ${stock.price.regularMarketDayHigh}\n- Low: ${stock.price.regularMarketDayLow}\n- Volume: ${stock.price.regularMarketVolume}\n- Market cap: ${stock.price.marketCap}`)
+            .setColor(embedOptions.colors.success)
+            .setTimestamp();
+    }
+
+    static followMarketClosed(follow, stock) {
+        return new EmbedBuilder()
+            .setTitle(`> ${embedOptions.icons.success} ` + "Market closed")
+            .setDescription(`The market is now closed for ${follow.symbol} on ${stock.price.exchangeName}\n\n- Price: ${stock.price.regularMarketPrice}${stock.price.currencySymbol}\n- Previous close: ${stock.price.regularMarketPreviousClose}\n- Change: ${stock.price.regularMarketChange}\n- Change %: ${stock.price.regularMarketChangePercent}\n- Open: ${stock.price.regularMarketOpen}\n- High: ${stock.price.regularMarketDayHigh}\n- Low: ${stock.price.regularMarketDayLow}\n- Volume: ${stock.price.regularMarketVolume}\n- Market cap: ${stock.price.marketCap}`)
+            .setColor(embedOptions.colors.success)
+            .setTimestamp();
+    }
 }
 
 module.exports = FolowsEmbed;

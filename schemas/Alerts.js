@@ -4,6 +4,7 @@ const alertSchema = mongoose.Schema({
   ownerId: String,
   guildId: String,
   price: Number,
+  alertOnHigher: Boolean,
   symbol: String,
   hasBeenTrigered: Boolean,
 },

@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
-const { Alerts, Follows, Guilds } = require("../schemas")
+const yahooFinance = require('yahoo-finance2').default; // NOTE the .default
+const { Alerts, Follows, Guilds } = require("../schemas");
+const { followMarketClosed, followMarketOpened } = require("../embeds/Follows");
+const { alertTriggered } = require("../embeds/Alerts");
+const { resumeStock } = require("../embeds/Misc");
+
 module.exports = async client => {
     //GUILDS FUNCTIONS
     //Get a guild
@@ -72,12 +77,13 @@ module.exports = async client => {
     };
 
     //Create an alert
-    client.createAlert = async (guildId, ownerId, price, symbol) => {
+    client.createAlert = async (guildId, ownerId, price, symbol, alertOnHigher) => {
         const merged = Object.assign({ _id: new mongoose.Types.ObjectId() }, {
             guildId,
             ownerId,
             price,
             symbol,
+            alertOnHigher,
             hasBeenTrigered: false
         });
         const createAlert = await new Alerts(merged);
@@ -166,6 +172,91 @@ module.exports = async client => {
             return e
         })
     };
+
+    //MARKET FUNCTIONS
+    //Open Market
+    client.openMarket = async () => {
+        const follows = await client.getAllFollows();
+        follows.forEach(async f => {
+            const guild = await client.guilds.fetch(f.guildId)
+            if (!guild) return;
+            const guildData = await client.getGuild(guild.id);
+            if (!guildData) return;
+            const channel = await guild.channels.fetch(guildData.followChannelId);
+            if (!channel) return;
+            if (!f.onOpen) return;
+            return await channel.send({ embeds: [followMarketOpened(f, await client.getStock(f.symbol))] }).then(() => {
+                console.log(`Market opened for ${f.symbol} in ${guild.name}`);
+            }).catch((e) => {
+                console.log(e);
+            });
+        });
+    };
+
+    //Close Market
+    client.closeMarket = async () => {
+        const follows = await client.getAllFollows();
+        follows.forEach(async f => {
+            const guild = await client.guilds.fetch(f.guildId)
+            if (!guild) return;
+            const guildData = await client.getGuild(guild.id);
+            if (!guildData) return;
+            const channel = await guild.channels.fetch(guildData.followChannelId);
+            if (!channel) return;
+            if (!f.onClose) return;
+            return await channel.send({ embeds: [followMarketClosed(f, await client.getStock(f.symbol))] }).then(() => {
+                console.log(`Market closed for ${f.symbol} in ${guild.name}`);
+            }).catch((e) => {
+                console.log(e);
+            });
+        });
+    };
+
+    //Alert triggered
+    client.alertTrigered = async (a, stock, guild, channel) => {
+        await client.updateAlert(a._id, { hasBeenTrigered: true });
+        return await channel.send({ content: `<@${a.ownerId}>`, embeds: [alertTriggered(a), resumeStock("Check Stock", `**${stock.price.shortName}** - ${stock.price.symbol} - ${stock.price.exchangeName}`, stock)] }).then(() => {
+            console.log(`Alert triggered for ${a.symbol} in ${guild.name}`);
+        }).catch((e) => {
+            console.log(e);
+        });
+    };
+
+    //Check Alerts
+    client.checkAlerts = async () => {
+        const alerts = await client.getAllAlerts();
+        alerts.forEach(async a => {
+            const guild = await client.guilds.fetch(a.guildId)
+            if (!guild) return;
+            const guildData = await client.getGuild(guild.id);
+            if (!guildData) return;
+            const channel = await guild.channels.fetch(guildData.alertChannelId);
+            if (!channel) return;
+            const stock = await client.getStock(a.symbol);
+            if (!stock) return;
+            if (a.hasBeenTrigered) return;
+            if (a.alertOnHigher && stock.price.regularMarketPrice >= a.price) {
+                return await client.alertTrigered(a, stock, guild, channel);
+            } else if (!a.alertOnHigher && stock.price.regularMarketPrice <= a.price) {
+                return await client.alertTrigered(a, stock, guild, channel);
+            }
+        });
+    };
+
+    //Get a stock
+    client.getStock = async (symbol) => {
+        const stock = await yahooFinance.quoteSummary(symbol, {
+            modules: ['price']
+        });
+        if (stock) {
+            stock.price.regularMarketChangePercent = stock.price.regularMarketChangePercent * 100;
+            stock.price.regularMarketChangePercent = stock.price.regularMarketChangePercent.toFixed(2);
+            stock.price.regularMarketChange = stock.price.regularMarketChange.toFixed(2);
+            return stock;
+        }
+        else return undefined;
+    };
+
 
 
     //MISC FUNCTIONS

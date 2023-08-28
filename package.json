@@ -21,6 +21,7 @@
     "dotenv": "^16.0.3",
     "glob": "^10.2.2",
     "mongoose": "^7.1.1",
+    "node-cron": "^3.0.2",
     "yahoo-finance2": "^2.4.4"
   }
 }

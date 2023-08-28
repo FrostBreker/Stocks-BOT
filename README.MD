@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a bot that will help you to get the latest information about the stocks you want to follow.
+This is a bot that will help you to get the latest information about the stocks you want to follow and set alert.
 
 ## Installation
 

@@ -13,6 +13,7 @@ module.exports = {
                 .setDescription("Add an alert on a stock.")
                 .addStringOption(option => option.setName("stock").setDescription("The stock to alert.").setRequired(true).setAutocomplete(true))
                 .addNumberOption(option => option.setName("price").setDescription("The price to alert.").setRequired(true))
+                .addBooleanOption(option => option.setName("alert_on_higher").setDescription("Alert when the price is higher than the price you set.").setRequired(true))
         )
         .addSubcommand(subcommand =>
             subcommand
@@ -20,6 +21,7 @@ module.exports = {
                 .setDescription("Edit an alert.")
                 .addStringOption(option => option.setName("alert_id").setDescription("The alert to edit.").setRequired(true).setAutocomplete(true))
                 .addNumberOption(option => option.setName("price").setDescription("The price to alert.").setRequired(true))
+                .addBooleanOption(option => option.setName("alert_on_higher").setDescription("Alert when the price is higher than the price you set.").setRequired(true))
         )
         .addSubcommand(subcommand =>
             subcommand
@@ -87,15 +89,17 @@ module.exports = {
             case 'add': {
                 const stock = interaction.options.getString("stock");
                 const price = interaction.options.getNumber("price");
+                const alert_on_higher = interaction.options.getBoolean("alert_on_higher");
 
                 if (!stock) return interaction.editReply({ embeds: [errorCommand("Alert", "You need to provide a stock to alert.")] });
                 if (!price) return interaction.editReply({ embeds: [errorCommand("Alert", "You need to provide a price to alert.")] });
+                if (!alert_on_higher) return interaction.editReply({ embeds: [errorCommand("Alert", "You need to set the trigger.")] });
                 try {
                     const data = await yahooFinance.quoteSummary(stock, {
                         modules: ['price']
                     });
                     if (!data.price) return interaction.editReply({ embeds: [errorCommand("Alert", "This stock doesn't exist.")] });
-                    const alert = await client.createAlert(interaction.guild.id, interaction.user.id, price, stock);
+                    const alert = await client.createAlert(interaction.guild.id, interaction.user.id, price, stock, alert_on_higher);
 
                     if (alert) return interaction.editReply({ embeds: [alertCreated(alert)] });
                     else return interaction.editReply({ embeds: [errorCommand("Alert", "Unable to make an alert on this stocks.")] });
@@ -107,13 +111,16 @@ module.exports = {
             case 'edit': {
                 const alert_id = interaction.options.getString("alert_id");
                 const price = interaction.options.getNumber("price");
+                const alert_on_higher = interaction.options.getBoolean("alert_on_higher");
 
                 if (!alert_id) return interaction.editReply({ embeds: [errorCommand("Alert", "You need to provide an alert.")] });
                 if (!price) return interaction.editReply({ embeds: [errorCommand("Alert", "You need to provide a price to alert.")] });
+                if (!alert_on_higher) return interaction.editReply({ embeds: [errorCommand("Alert", "You need to set the trigger.")] });
                 const alert = await client.getAlert(alert_id);
                 if (!alert) return interaction.editReply({ embeds: [errorCommand("Alert", "This alert doesn't exist.")] });
                 alert.price = price;
-                const data = await client.updateAlert(alert._id, { price });
+                alert.alertOnHigher = alert_on_higher;
+                const data = await client.updateAlert(alert._id, { price, alert_on_higher });
                 if (data) return interaction.editReply({ embeds: [alertUpdated(alert)] });
                 else return interaction.editReply({ embeds: [errorCommand("Alert", "Unable to update this alert.")] });
             }
