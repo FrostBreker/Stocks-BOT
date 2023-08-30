@@ -13,15 +13,15 @@ module.exports = {
     })
 
     //Schedule cron jobs to only open market on weekdays
-    cron.schedule("*/1 9-18 * * 1-5", async () => {
+    cron.schedule("*/1 7-15 * * 1-5", async () => {
       await client.checkAlerts();
     });
 
     //Schedule cron jobs on opening and closing market
-    cron.schedule("0 9 * * 1-5", async () => {
+    cron.schedule("0 7 * * 1-5", async () => {
       await client.openMarket();
     });
-    cron.schedule("0 18 * * 1-5", async () => {
+    cron.schedule("0 15 * * 1-5", async () => {
       await client.closeMarket();
     });
 

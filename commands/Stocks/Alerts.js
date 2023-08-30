@@ -93,7 +93,7 @@ module.exports = {
 
                 if (!stock) return interaction.editReply({ embeds: [errorCommand("Alert", "You need to provide a stock to alert.")] });
                 if (!price) return interaction.editReply({ embeds: [errorCommand("Alert", "You need to provide a price to alert.")] });
-                if (!alert_on_higher) return interaction.editReply({ embeds: [errorCommand("Alert", "You need to set the trigger.")] });
+
                 try {
                     const data = await yahooFinance.quoteSummary(stock, {
                         modules: ['price']
@@ -111,11 +111,11 @@ module.exports = {
             case 'edit': {
                 const alert_id = interaction.options.getString("alert_id");
                 const price = interaction.options.getNumber("price");
-                const alert_on_higher = interaction.options.getBoolean("alert_on_higher");
-
+				const alert_on_higher = interaction.options.getBoolean("alert_on_higher");
+                
                 if (!alert_id) return interaction.editReply({ embeds: [errorCommand("Alert", "You need to provide an alert.")] });
                 if (!price) return interaction.editReply({ embeds: [errorCommand("Alert", "You need to provide a price to alert.")] });
-                if (!alert_on_higher) return interaction.editReply({ embeds: [errorCommand("Alert", "You need to set the trigger.")] });
+
                 const alert = await client.getAlert(alert_id);
                 if (!alert) return interaction.editReply({ embeds: [errorCommand("Alert", "This alert doesn't exist.")] });
                 alert.price = price;

@@ -215,8 +215,16 @@ module.exports = async client => {
     //Alert triggered
     client.alertTrigered = async (a, stock, guild, channel) => {
         await client.updateAlert(a._id, { hasBeenTrigered: true });
-        return await channel.send({ content: `<@${a.ownerId}>`, embeds: [alertTriggered(a), resumeStock("Check Stock", `**${stock.price.shortName}** - ${stock.price.symbol} - ${stock.price.exchangeName}`, stock)] }).then(() => {
+        const messageObject = { content: `<@${a.ownerId}>`, embeds: [alertTriggered(a), resumeStock("Check Stock", `**${stock.price.shortName}** - ${stock.price.symbol} - ${stock.price.exchangeName}`, stock)] };
+        return await channel.send(messageObject).then(async () => {
             console.log(`Alert triggered for ${a.symbol} in ${guild.name}`);
+            const user = await client.users.fetch(a.ownerId)
+            if (!user) return;
+            return await user.send(messageObject).then(() => {
+                console.log(`Alert triggered for ${a.symbol} to ${user.username}`);
+            }).catch((e) => {
+                console.log(e);
+            });
         }).catch((e) => {
             console.log(e);
         });
